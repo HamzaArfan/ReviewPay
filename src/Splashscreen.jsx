@@ -15,10 +15,8 @@ const SplashScreen = () => {
 
     if (videoElement) {
       videoElement.addEventListener('ended', handleVideoEnd);
-      // Auto play the video when component mounts
       videoElement.play().catch(error => {
         console.log("Video autoplay failed:", error);
-        // Fallback: redirect to welcome page if video fails to play
         navigate('/welcome');
       });
     }
