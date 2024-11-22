@@ -1,6 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const WelcomePage = () => {
+  const navigate = useNavigate();
+
+  const handleContinue = () => {
+    navigate('/login');
+  };
   const styles = {
     container: {
       minHeight: '100vh',
@@ -40,7 +46,10 @@ const WelcomePage = () => {
       <h1 style={styles.text}>
         Welcome to Review Pay! Get genuine insights from real people, just like you
       </h1>
-      <button style={styles.button}>
+      <button 
+        onClick={handleContinue}
+        className="bg-white border-none rounded-lg px-8 py-3 cursor-pointer text-base font-medium transition-transform hover:scale-105"
+      >
         Continue
       </button>
     </div>

@@ -188,7 +188,7 @@ const Dashboard = () => {
             {/* Logo and Company Name */}
             <div className="flex items-center space-x-2 sm:space-x-4">
               <img src={logo} alt="Company Logo" className="h-8 sm:h-10" />
-              <span className="text-xl sm:text-2xl font-['GeneralSansBold'] text-white">ReviewPay</span>
+              <span className="text-xl sm:text-2xl font-['VerminViva'] text-white">ReviewPay</span>
             </div>
 
             {/* Search Bar - Hidden on mobile */}

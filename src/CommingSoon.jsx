@@ -16,7 +16,7 @@ const ComingSoonPage = () => {
         <div className="space-y-8 font-['GeneralSansRegular']">
           {/* Logo */}
           <img src={logo} width={150} className="mx-auto mb-6" alt="Review Pay Logo" />
-          <h1 className="text-white text-4xl font-['GeneralSansBold'] mb-4">
+          <h1 className="text-white text-4xl font-['VerminViva'] mb-4">
             Review Pay
           </h1>
 

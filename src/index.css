@@ -41,4 +41,9 @@ code {
   src: url('./assets/fonts/Varino-Normal.otf') format('opentype');
 }
 
+@font-face {
+  font-family: 'VerminViva';
+  src: url('./assets/fonts/Vermin\ Viva.otf') format('opentype');
+}
+
 
