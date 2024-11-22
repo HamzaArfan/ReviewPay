@@ -1,69 +1,64 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ReactPlayer from 'react-player';
-import splashVideo from './assets/images/splash.mp4';
+import splashVideo from './assets/images/splash.mp4'; // Adjust the path according to your video location
 
 const SplashScreen = () => {
+  const videoRef = useRef(null);
   const navigate = useNavigate();
 
-  const handleVideoEnd = () => {
-    navigate('/welcome');
-  };
+  useEffect(() => {
+    const videoElement = videoRef.current;
 
-  const handleError = (error) => {
-    console.log("Video playback error:", error);
-    navigate('/welcome');
-  };
+    const handleVideoEnd = () => {
+      navigate('/welcome');  // Make sure this route matches your router configuration
+    };
+
+    if (videoElement) {
+      videoElement.addEventListener('ended', handleVideoEnd);
+      // Auto play the video when component mounts
+      videoElement.play().catch(error => {
+        console.log("Video autoplay failed:", error);
+        // Fallback: redirect to welcome page if video fails to play
+        navigate('/welcome');
+      });
+    }
+
+    // Cleanup event listener
+    return () => {
+      if (videoElement) {
+        videoElement.removeEventListener('ended', handleVideoEnd);
+      }
+    };
+  }, [navigate]);
 
   const styles = {
-    wrapper: {
+    videoContainer: {
       width: '100vw',
       height: '100vh',
       overflow: 'hidden',
       position: 'fixed',
       top: 0,
       left: 0,
-      backgroundColor: 'black',
+      backgroundColor: 'black', // Background color while video loads
     },
-    playerWrapper: {
-      position: 'relative',
-      paddingTop: '56.25%', // 16:9 Aspect Ratio
+    video: {
       width: '100%',
       height: '100%',
-    },
-    reactPlayer: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-    },
+      objectFit: 'cover', // This will cover the entire container while maintaining aspect ratio
+    }
   };
 
   return (
-    <div style={styles.wrapper}>
-      <div style={styles.playerWrapper}>
-        <ReactPlayer
-          url={splashVideo}
-          playing={true}
-          muted={true}
-          width="100%"
-          height="100%"
-          style={styles.reactPlayer}
-          onEnded={handleVideoEnd}
-          onError={handleError}
-          playsinline
-          config={{
-            file: {
-              attributes: {
-                style: {
-                  objectFit: 'cover',
-                  width: '100%',
-                  height: '100%',
-                }
-              }
-            }
-          }}
-        />
-      </div>
+    <div style={styles.videoContainer}>
+      <video 
+        ref={videoRef}
+        style={styles.video}
+        playsInline
+        muted // Most browsers require muted for autoplay
+      >
+        <source src={splashVideo} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
     </div>
   );
 };
